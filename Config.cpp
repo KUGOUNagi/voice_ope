@@ -7,7 +7,6 @@ const static int GAME_Y = 240;    //「ゲーム」文字のy位置
 const static int CONFIG_Y = 270;    //「設定」文字のy位置
 const static int MOVE_Y = 300;
 
-const static int aa, bb, cc, dd, ee;
 static int mImageHandle;    //画像ハンドル格納用変数
 int z = 550, sikaku1 = 0;
 int sikaku[] = { 60,80,100,120,140 };

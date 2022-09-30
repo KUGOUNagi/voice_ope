@@ -3,6 +3,8 @@
 #include "Game.h"
 #include "Menu.h"
 #include "Move.h"
+#include "Score.h"
+#include "tutorial.h"
 #include "SceneMgr.h"
 
 static eScene mScene = eScene_Menu;    //シーン管理変数
@@ -42,6 +44,12 @@ void SceneMgr_Update() {
     case eScene_Move:    //現在の画面がメニューなら
         Move_Update();   //メニュー画面の更新処理をする
         break;//以下略
+    case eScene_tutorial:
+        tutorial_Update();
+        break;
+    case eScene_Score:
+        Score_Update();
+        break;
     }
 }
 
@@ -59,6 +67,12 @@ void SceneMgr_Draw() {
         break;
     case eScene_Move:
         Move_Draw();
+        break;
+    case eScene_tutorial:
+        tutorial_Draw();
+        break;
+    case eScene_Score:
+        Score_Draw();
         break;
     }
 }
@@ -82,6 +96,12 @@ static void SceneMgr_InitializeModule(eScene scene) {
     case eScene_Move:
         Move_Initialize();
         break;
+    case eScene_tutorial:
+        tutorial_Initialize();
+        break;
+    case eScene_Score:
+        Score_Initialize();
+        break;
     }
 }
 
@@ -99,6 +119,12 @@ static void SceneMgr_FinalizeModule(eScene scene) {
         break;
     case eScene_Move:
         Move_Finalize();
+        break;
+    case eScene_tutorial:
+        tutorial_Finalize();
+        break;
+    case eScene_Score:
+        Score_Finalize();
         break;
     }
 }

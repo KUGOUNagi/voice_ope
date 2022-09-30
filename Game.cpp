@@ -9,7 +9,7 @@
 #define PI 3.1415926f
 
 static int mImageHandle, Handle, don, katt;    //画像ハンドル格納用変数
-int y = -5000, hantei = 3, interval = 100, bpm = 30, kaunto, ryou, ka, fuka;
+int y = -8000, hantei = 3, interval = 100, bpm = 30, kaunto, ryou, ka, fuka;
 FILE* fp;
 int a[] = { 0,0,0,1,0,2,0,0,0,1,0,1,0,2,0,0,0,1,0,1,0,
 2,0,1,0,2,0,1,0,2,0,0,0,2,0,1,0,0,0,2,0,2,0,1,0,0,0,1,
@@ -47,9 +47,9 @@ void Game_Finalize() {
 //更新
 void Game_Update() {
     for (int i = 0; i < 1; i++) {
-        x = x + (interval / bpm);
+        y = y + (interval / bpm);
         if (CheckHitKey(KEY_INPUT_B) != 0) {
-            x = -5000;
+            y = -8000;
         }
     }//ー側にずらす
     for (int j = 0; j < (sizeof(a) / sizeof(a[0])); j++) {
@@ -65,22 +65,22 @@ void Game_Update() {
             hantei++;
         }
     }
-    if (CheckHitKey(KEY_INPUT_B) != 0) {//Escキーが押されていたら
+    if (CheckHitKey(KEY_INPUT_S) != 0) {//Escキーが押されていたら
         for (int i = 0; i < (sizeof(a) / sizeof(a[0])); i++) {
             fumen[i] = a[i];
         }
         Game_Initialize();
-        SceneMgr_ChangeScene(eScene_Menu);//シーンをメニューに変更
+        SceneMgr_ChangeScene(eScene_Score);//シーンをメニューに変更
     }
     if (Keyboard_Get(KEY_INPUT_G) == 1 || Keyboard_Get(KEY_INPUT_H) == 1) {//G,Hキーが押されていたら
         if (fumen[hantei] == don) {
-            if (197 <= 2 + x + interval * hantei && 2 + x + interval * hantei <= 207) {
+            if (197 <= 2 + y + interval * hantei && 2 + y + interval * hantei <= 207) {
                 ryou++;
             }
-            if (192 <= 2 + x + interval * hantei && 197 > 2 + x + interval * hantei || 2 + x + interval * hantei > 207 && 2 + x + interval * hantei <= 212) {
+            if (192 <= 2 + y + interval * hantei && 197 > 2 + y + interval * hantei || 2 + y + interval * hantei > 207 && 2 + y + interval * hantei <= 212) {
                 ka++;
             }
-            if (192 > 2 + x + interval * hantei || 2 + x + interval * hantei > 212) {
+            if (192 > 2 + y + interval * hantei || 2 + y + interval * hantei > 212) {
                 fuka++;
             }
         }
@@ -135,7 +135,7 @@ void Game_Draw() {
     }
     //DrawRotaGraph(82, 185, 1.5, 0.0, Handle, FALSE);
     //DrawString(0, 0, "ゲーム画面です。", GetColor(255, 255, 255));
-    DrawString(0, 20, "Bキーを押すとメニュー画面に戻ります。", GetColor(255, 255, 255));
+    DrawString(0, 20, "Sキーを押すとリザルトに移ります。", GetColor(255, 255, 255));
     DrawFormatString(0, 40, GetColor(255, 255, 255), "%d", interval);
     DrawFormatString(300, 0, GetColor(255, 255, 255), "良_%d", ryou);
     DrawFormatString(350, 0, GetColor(255, 255, 255), "可_%d", ka);
