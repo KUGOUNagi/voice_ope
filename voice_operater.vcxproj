@@ -153,7 +153,8 @@
   <ItemGroup>
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="game_main.cpp" />
+    <ClCompile Include="Score.cpp" />
+    <ClCompile Include="tutorial.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
@@ -167,6 +168,8 @@
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Move.h" />
     <ClInclude Include="SceneMgr.h" />
+    <ClInclude Include="Score.h" />
+    <ClInclude Include="tutorial.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

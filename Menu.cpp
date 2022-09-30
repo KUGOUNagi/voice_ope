@@ -19,14 +19,15 @@ void Menu_Finalize() {
     DeleteGraph(mImageHandle);    //画像の解放
 }
 typedef enum {
-    eMenu_Game,        //ゲーム
+    eMune_tutorial,
+    //eMenu_Game,        //ゲーム
     eMenu_Config,    //設定
     eMenu_Move,
 
     eMenu_Num,        //本項目の数
 } eMenu;
 
-static int NowSelect = eMenu_Game;    //現在の選択状態(初期はゲーム選択中)
+static int NowSelect = eMune_tutorial;    //現在の選択状態(初期はゲーム選択中)
 
 //更新
 void Menu_Update() {
@@ -38,8 +39,8 @@ void Menu_Update() {
     }
     if (Keyboard_Get(KEY_INPUT_RETURN) == 1) {//エンターキーが押されたら
         switch (NowSelect) {//現在選択中の状態によって処理を分岐
-        case eMenu_Game://ゲーム選択中なら
-            SceneMgr_ChangeScene(eScene_Game);//シーンをゲーム画面に変更
+        case eMune_tutorial://ゲーム選択中なら
+            SceneMgr_ChangeScene(eScene_tutorial);//シーンをゲーム画面に変更
             break;
         case eMenu_Config://設定選択中なら
             SceneMgr_ChangeScene(eScene_Config);//シーンを設定画面に変更
@@ -64,7 +65,7 @@ void Menu_Draw() {
     DrawString(280, MOVE_Y, "動画", GetColor(255, 255, 255));
     int y = 0;
     switch (NowSelect) {//現在の選択状態に従って処理を分岐
-    case eMenu_Game://ゲーム選択中なら
+    case eMune_tutorial://ゲーム選択中なら
         y = GAME_Y;    //ゲームの座標を格納
         y = GAME_Y;    //ゲームの座標を格納
         break;
