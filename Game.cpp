@@ -118,7 +118,7 @@ void Game_Update() {
 
 //•`‰æ
 void Game_Draw() {
-    DrawRotaGraph(320, 230, 0.9, 0.0, mImageHandle, FALSE);
+    DrawRotaGraph(320, 230, 1.1, 0.0, mImageHandle, FALSE);
     for (int i = 0; i < (sizeof(a) / sizeof(a[0])); i++) {
         if (a[i] == 1) {
             DrawRotaGraph(176, y + interval * i, 0.7, 0.0, fumen[i], TRUE);//‚¿‚¢‚³‚¢ƒhƒ“

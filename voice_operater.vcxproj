@@ -95,6 +95,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\vs\voice_operater\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
+      <AdditionalOptions>ws2_32.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -129,6 +130,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>C:\vs\voice_operater\DxLib_VC\プロジェクトに追加すべきファイル_VC用</AdditionalLibraryDirectories>
+      <AdditionalOptions>ws2_32.lib %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -153,6 +155,7 @@
   <ItemGroup>
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="JuiusClient.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="tutorial.cpp" />
     <ClCompile Include="Keyboard.cpp" />
