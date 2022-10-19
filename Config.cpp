@@ -3,80 +3,95 @@
 #include "DxLib.h"
 #include "Keyboard.h"
 
-const static int GAME_Y = 240;    //uƒQ[ƒ€v•¶š‚ÌyˆÊ’u
-const static int CONFIG_Y = 270;    //uİ’èv•¶š‚ÌyˆÊ’u
-const static int MOVE_Y = 300;
+const static int SPEED_Y = 200;    //ï¿½uï¿½Qï¿½[ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½yï¿½Ê’u
+const static int DIFF_Y = 220;    //ï¿½uï¿½İ’ï¿½vï¿½ï¿½ï¿½ï¿½ï¿½ï¿½yï¿½Ê’u
+const static int MOVE_Y = 240;
+const static int RULE_Y = 260;
 
-static int mImageHandle;    //‰æ‘œƒnƒ“ƒhƒ‹Ši”[—p•Ï”
+static int mImageHandle;    //ï¿½æ‘œï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½iï¿½[ï¿½pï¿½Ïï¿½
 int z = 550, sikaku1 = 0;
 int sikaku[] = { 60,80,100,120,140 };
 
-//‰Šú‰»
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Config_Initialize() {
-    mImageHandle = LoadGraph("img/danzyon.jpeg");    //‰æ‘œ‚Ìƒ[ƒh
+    mImageHandle = LoadGraph("img/danzyon.jpeg");    //ï¿½æ‘œï¿½Ìƒï¿½ï¿½[ï¿½h
 }
 
-//I—¹ˆ—
+//ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Config_Finalize() {
-    DeleteGraph(mImageHandle);//‰æ‘œ‚Ì‰ğ•ú
+    DeleteGraph(mImageHandle);//ï¿½æ‘œï¿½Ì‰ï¿½ï¿½
 }
 typedef enum {
-    eMenu_Game,        //ƒQ[ƒ€
-    eMenu_Config,    //İ’è
+    eMenu_Speed,        //ï¿½Qï¿½[ï¿½ï¿½
+    eMenu_Diff,    //ï¿½İ’ï¿½
     eMenu_Move,
+    eMenu_Rule,
 
-    eMenu_Num,        //–{€–Ú‚Ì”
+    eMenu_Num,        //ï¿½{ï¿½ï¿½ï¿½Ú‚Ìï¿½
 } eMenu;
 
-static int NowSelect = eMenu_Game;    //Œ»İ‚Ì‘I‘ğó‘Ô(‰Šú‚ÍƒQ[ƒ€‘I‘ğ’†)
+static int NowSelect = eMenu_Speed;    //ï¿½ï¿½ï¿½İ‚Ì‘Iï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ÍƒQï¿½[ï¿½ï¿½ï¿½Iï¿½ï¿½)
 
-//XV
+//ï¿½Xï¿½V
 void Config_Update() {
-    if (Keyboard_Get(KEY_INPUT_DOWN) == 1) {//‰ºƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        NowSelect = (NowSelect + 1) % eMenu_Num;//‘I‘ğó‘Ô‚ğˆê‚Â‰º‚°‚é
+    if (Keyboard_Get(KEY_INPUT_DOWN) == 1) {//ï¿½ï¿½ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
+        NowSelect = (NowSelect + 1) % eMenu_Num;//ï¿½Iï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½Â‰ï¿½ï¿½ï¿½ï¿½ï¿½
     }
-    if (Keyboard_Get(KEY_INPUT_UP) == 1) {//ãƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        NowSelect = (NowSelect + (eMenu_Num - 1)) % eMenu_Num;//‘I‘ğó‘Ô‚ğˆê‚Âã‚°‚é
+    if (Keyboard_Get(KEY_INPUT_UP) == 1) {//ï¿½ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
+        NowSelect = (NowSelect + (eMenu_Num - 1)) % eMenu_Num;//ï¿½Iï¿½ï¿½ï¿½ï¿½Ô‚ï¿½ï¿½ï¿½Âã‚°ï¿½ï¿½
     }
 
-    if (CheckHitKey(KEY_INPUT_U) != 0) {//GƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        sikaku1--;//ƒV[ƒ“‚ğƒQ[ƒ€‰æ–Ê‚É•ÏX
+    if (Keyboard_Get(KEY_INPUT_RETURN) == 1) {//ï¿½Gï¿½ï¿½ï¿½^ï¿½[ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê‚½ï¿½ï¿½
+        switch (NowSelect) {//ï¿½ï¿½ï¿½İ‘Iï¿½ğ’†‚Ìï¿½Ô‚É‚ï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½ğ•ªŠï¿½
+        case eMenu_Speed://ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½ğ’†‚È‚ï¿½
+            SceneMgr_ChangeScene(eScene_Menu);//ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½Ê‚É•ÏX
+            break;
+        case eMenu_Diff://ï¿½İ’ï¿½Iï¿½ğ’†‚È‚ï¿½
+            SceneMgr_ChangeScene(eScene_Menu);//ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½İ’ï¿½ï¿½Ê‚É•ÏX
+            break;
+        case eMenu_Move://ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½ğ’†‚È‚ï¿½
+            SceneMgr_ChangeScene(eScene_Menu);//ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½Ê‚É•ÏX
+            break;
+        case eMenu_Rule://ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½ğ’†‚È‚ï¿½
+            SceneMgr_ChangeScene(eScene_Menu);//ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½Ê‚É•ÏX
+            break;
+        }
     }
-    if (CheckHitKey(KEY_INPUT_D) != 0) {//GƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        sikaku1++;//ƒV[ƒ“‚ğƒQ[ƒ€‰æ–Ê‚É•ÏX
+
+    if (CheckHitKey(KEY_INPUT_G) != 0) {//Gï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
+        SceneMgr_ChangeScene(eScene_Menu);//ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½Ê‚É•ÏX
     }
-    if (CheckHitKey(KEY_INPUT_G) != 0) {//GƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        SceneMgr_ChangeScene(eScene_Menu);//ƒV[ƒ“‚ğƒQ[ƒ€‰æ–Ê‚É•ÏX
-    }
-    if (CheckHitKey(KEY_INPUT_ESCAPE) != 0) {//EscƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        SceneMgr_ChangeScene(eScene_Menu);//ƒV[ƒ“‚ğƒƒjƒ…[‚É•ÏX
+    if (CheckHitKey(KEY_INPUT_ESCAPE) != 0) {//Escï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
+        SceneMgr_ChangeScene(eScene_Menu);//ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½É•ÏX
     }
 }
 
-//•`‰æ
+//ï¿½`ï¿½ï¿½
 void Config_Draw() {
     DrawRotaGraph(320, 230, 1.5, 0.0, mImageHandle, FALSE);
 
-    DrawString(0, 0, "İ’è‰æ–Ê‚Å‚·B", GetColor(255, 255, 255));
-    DrawString(280, 200, "‘¬“x", GetColor(255, 255, 255));
-    DrawString(280, 220, "“ïˆÕ“x", GetColor(255, 255, 255));
-    DrawString(280, 240, "–¾‚é‚³", GetColor(255, 255, 255));
-    DrawString(280, 260, "ƒ‹[ƒ‹", GetColor(255, 255, 255));
-    //DrawString(280, 280, "»ìÒ", GetColor(255, 255, 255));
+    DrawString(0, 0, "ï¿½İ’ï¿½ï¿½Ê‚Å‚ï¿½ï¿½B", GetColor(255, 255, 255));
+    DrawString(280, 200, "ï¿½ï¿½ï¿½x", GetColor(255, 255, 255));
+    DrawString(280, 220, "ï¿½ï¿½Õ“x", GetColor(255, 255, 255));
+    DrawString(280, 240, "ï¿½ï¿½ï¿½é‚³", GetColor(255, 255, 255));
+    DrawString(280, 260, "ï¿½ï¿½ï¿½[ï¿½ï¿½", GetColor(255, 255, 255));
+    //DrawString(280, 280, "ï¿½ï¿½ï¿½ï¿½ï¿½", GetColor(255, 255, 255));
     int y = 0;
-    switch (NowSelect) {//Œ»İ‚Ì‘I‘ğó‘Ô‚É]‚Á‚Äˆ—‚ğ•ªŠò
-    case eMenu_Game://ƒQ[ƒ€‘I‘ğ’†‚È‚ç
-        y = GAME_Y;    //ƒQ[ƒ€‚ÌÀ•W‚ğŠi”[
-        y = GAME_Y;    //ƒQ[ƒ€‚ÌÀ•W‚ğŠi”[
+    switch (NowSelect) {//ï¿½ï¿½ï¿½İ‚Ì‘Iï¿½ï¿½ï¿½ï¿½Ô‚É]ï¿½ï¿½ï¿½Äï¿½ï¿½ï¿½ï¿½ğ•ªŠï¿½
+    case eMenu_Speed://ï¿½Qï¿½[ï¿½ï¿½ï¿½Iï¿½ğ’†‚È‚ï¿½
+        y = SPEED_Y;    //ï¿½Qï¿½[ï¿½ï¿½ï¿½Ìï¿½ï¿½Wï¿½ï¿½ï¿½iï¿½[
         break;
-    case eMenu_Config://İ’è‘I‘ğ’†‚È‚ç
-        y = CONFIG_Y;    //İ’è‚ÌÀ•W‚ğŠi”[
+    case eMenu_Diff://ï¿½İ’ï¿½Iï¿½ğ’†‚È‚ï¿½
+        y = DIFF_Y;    //ï¿½İ’ï¿½Ìï¿½ï¿½Wï¿½ï¿½ï¿½iï¿½[
         break;
-    case eMenu_Move://İ’è‘I‘ğ’†‚È‚ç
-        y = MOVE_Y;    //İ’è‚ÌÀ•W‚ğŠi”[
+    case eMenu_Move://ï¿½İ’ï¿½Iï¿½ğ’†‚È‚ï¿½
+        y = MOVE_Y;    //ï¿½İ’ï¿½Ìï¿½ï¿½Wï¿½ï¿½ï¿½iï¿½[
+        break;
+    case eMenu_Rule://ï¿½İ’ï¿½Iï¿½ğ’†‚È‚ï¿½
+        y = RULE_Y;    //ï¿½İ’ï¿½Ìï¿½ï¿½Wï¿½ï¿½ï¿½iï¿½[
         break;
     }
-    DrawString(250, y, "¡", GetColor(255, 255, 255));
-    //DrawString(0, 20, "EscƒL[‚ğ‰Ÿ‚·‚Æƒƒjƒ…[‰æ–Ê‚É–ß‚è‚Ü‚·B", GetColor(255, 255, 255));
-    DrawString(280, 300, "GƒL[‚ğ‰Ÿ‚·‚ÆƒQ[ƒ€‰æ–Ê‚ÉˆÚs‚µ‚Ü‚·B", GetColor(255, 255, 255));
+    DrawString(250, y, "ï¿½ï¿½", GetColor(255, 255, 255));
+    //DrawString(0, 20, "Escï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æƒï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½Ê‚É–ß‚ï¿½Ü‚ï¿½ï¿½B", GetColor(255, 255, 255));
+    DrawString(280, 300, "Gï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÆƒQï¿½[ï¿½ï¿½ï¿½ï¿½Ê‚ÉˆÚsï¿½ï¿½ï¿½Ü‚ï¿½ï¿½B", GetColor(255, 255, 255));
 }

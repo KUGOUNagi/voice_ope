@@ -2,32 +2,33 @@
 #include "SceneMgr.h"
 #include "DxLib.h"
 #include "Keyboard.h"
+#include "ScoreClass.h"
 
-static int kirito, mImageHandle;
+static int mImageHandle;
+Score score;
 
 void Move_Initialize() {
-	kirito = LoadGraph("img/kirito02.png");
-	mImageHandle = LoadGraph("img/danzyon1.jpeg");    //‰æ‘œ‚Ìƒ[ƒh
+	mImageHandle = LoadGraph("img/danzyon1.jpeg");    //ï¿½æ‘œï¿½Ìƒï¿½ï¿½[ï¿½h
 }
 void Move_Finalize() {
-	DeleteGraph(kirito);
 }
-//XV
+//ï¿½Xï¿½V
 void Move_Update() {
-	if (CheckHitKey(KEY_INPUT_G) != 0) {//GƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-		SceneMgr_ChangeScene(eScene_Game);//ƒV[ƒ“‚ğƒQ[ƒ€‰æ–Ê‚É•ÏX
+	if (CheckHitKey(KEY_INPUT_G) != 0) {//Gï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
+		SceneMgr_ChangeScene(eScene_Game);//ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½[ï¿½ï¿½ï¿½ï¿½Ê‚É•ÏX
 	}
-	if (CheckHitKey(KEY_INPUT_ESCAPE) != 0) {//EscƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-		SceneMgr_ChangeScene(eScene_Menu);//ƒV[ƒ“‚ğƒƒjƒ…[‚É•ÏX
+	if (CheckHitKey(KEY_INPUT_ESCAPE) != 0) {//Escï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
+		SceneMgr_ChangeScene(eScene_Menu);//ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½É•ÏX
 	}
-	if (CheckHitKey(KEY_INPUT_F) != 0) {//EscƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-		SceneMgr_ChangeScene(eScene_Menu);//ƒV[ƒ“‚ğƒƒjƒ…[‚É•ÏX
+	if (CheckHitKey(KEY_INPUT_M) != 0) {//Escï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
+		SceneMgr_ChangeScene(eScene_Menu);//ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½É•ÏX
 	}
 }
 
-//•`‰æ
+//ï¿½`ï¿½ï¿½
 void Move_Draw() {
+	score.c;
+	score.print1();
 	DrawRotaGraph(320, 230, 1, 0.0, mImageHandle, FALSE);
-	DrawString(0, 20, "GƒL[‚ğ‰Ÿ‚·‚Æƒƒjƒ…[‰æ–Ê‚É–ß‚è‚Ü‚·B", GetColor(255, 255, 255));
-	DrawRotaGraph(300, 255, 1, 0.0, kirito, TRUE);
+	DrawString(0, 20, "Mï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æƒï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½Ê‚É–ß‚ï¿½Ü‚ï¿½ï¿½B", GetColor(255, 255, 255));
 }

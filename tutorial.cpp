@@ -8,37 +8,39 @@
 #include <sstream>
 #define PI 3.1415926f
 
-static int mImageHandle, Handle, candy, cookie;    //‰æ‘œƒnƒ“ƒhƒ‹Ši”[—p•Ï”
+static int mImageHandle, Handle, bag;    //ï¿½æ‘œï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½iï¿½[ï¿½pï¿½Ïï¿½
+int bag_x = 280, speed = 2;
 
-//‰Šú‰»
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void tutorial_Initialize() {
-    mImageHandle = LoadGraph("img/backgraund.png");    //‰æ‘œ‚Ìƒ[ƒh
-    candy = LoadGraph("img/candy.png");
-    cookie = LoadGraph("img/cookie.png");
+    mImageHandle = LoadGraph("img/backgraund.png");    //ï¿½æ‘œï¿½Ìƒï¿½ï¿½[ï¿½h
+    bag = LoadGraph("img/bag.png");
 }
 
-//I—¹ˆ—
+//ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void tutorial_Finalize() {
-    DeleteGraph(mImageHandle);    //‰æ‘œ‚Ì‰ğ•ú
+    DeleteGraph(mImageHandle);    //ï¿½æ‘œï¿½Ì‰ï¿½ï¿½
     //DeleteGraph(Handle);
-    DeleteGraph(candy);
-    DeleteGraph(cookie);
+    DeleteGraph(bag);
 }
-//XV
+//ï¿½Xï¿½V
 void tutorial_Update() {
-    if (CheckHitKey(KEY_INPUT_B) != 0) {//EscƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        SceneMgr_ChangeScene(eScene_Game);//ƒV[ƒ“‚ğƒQ[ƒ€‚É•ÏX
+    if (Keyboard_Get(KEY_INPUT_RETURN) == 1) {//ï¿½Gï¿½ï¿½ï¿½^ï¿½[ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
+        SceneMgr_ChangeScene(eScene_Game);//ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½[ï¿½ï¿½ï¿½É•ÏX
     }
-
+    if (Keyboard_Get(KEY_INPUT_RIGHT) != 0) { // ï¿½Eï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
+        bag_x=bag_x+speed;                       // ï¿½Eï¿½ÖˆÚ“ï¿½
+    }
+    if (Keyboard_Get(KEY_INPUT_LEFT) != 0) { // ï¿½Eï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
+        bag_x=bag_x-speed;                       // ï¿½Eï¿½ÖˆÚ“ï¿½
+    }
 }
 
-//•`‰æ
+//ï¿½`ï¿½ï¿½
 void tutorial_Draw() {
     DrawRotaGraph(320, 230, 0.9, 0.0, mImageHandle, FALSE);
-    DrawString(0, 0, "ƒ`ƒ…[ƒgƒŠƒAƒ‹‰æ–Ê‚Å‚·B", GetColor(255, 255, 255));
-    DrawString(0, 20, "BƒL[‚ğ‰Ÿ‚·‚ÆƒQ[ƒ€‰æ–Ê‚ÉˆÚ‚è‚Ü‚·B", GetColor(255, 255, 255));
+    DrawRotaGraph(bag_x, 330, 0.7, 0.0, bag, TRUE);
+    DrawString(0, 0, "ï¿½`ï¿½ï¿½ï¿½[ï¿½gï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ï¿½Ê‚Å‚ï¿½ï¿½B", GetColor(255, 255, 255));
+    DrawString(0, 20, "ï¿½Gï¿½ï¿½ï¿½^ï¿½[ï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÆƒQï¿½[ï¿½ï¿½ï¿½ï¿½Ê‚ÉˆÚ‚ï¿½Ü‚ï¿½ï¿½B", GetColor(255, 255, 255));
     DrawFormatString(0, 40, GetColor(255, 255, 255), "%d", 5);
-    //DrawFormatString(300, 0, GetColor(255, 255, 255), "—Ç_%d", ryou);
-    //DrawFormatString(350, 0, GetColor(255, 255, 255), "‰Â_%d", ka);
-    //DrawFormatString(400, 0, GetColor(255, 255, 255), "•s‰Â_%d", fuka);
 }

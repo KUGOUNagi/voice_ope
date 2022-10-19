@@ -8,37 +8,35 @@
 #include <sstream>
 #define PI 3.1415926f
 
-static int mImageHandle, Handle, candy, cookie;    //‰æ‘œƒnƒ“ƒhƒ‹Ši”[—p•Ï”
+static int mImageHandle, Handle, candy, cookie,sound;    //ï¿½æ‘œï¿½nï¿½ï¿½ï¿½hï¿½ï¿½ï¿½iï¿½[ï¿½pï¿½Ïï¿½
 
-//‰Šú‰»
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Score_Initialize() {
-    mImageHandle = LoadGraph("img/backgraund.png");    //‰æ‘œ‚Ìƒ[ƒh
+    mImageHandle = LoadGraph("img/backgraund.png");    //ï¿½æ‘œï¿½Ìƒï¿½ï¿½[ï¿½h
     candy = LoadGraph("img/candy.png");
     cookie = LoadGraph("img/cookie.png");
 }
 
-//I—¹ˆ—
+//ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void Score_Finalize() {
-    DeleteGraph(mImageHandle);    //‰æ‘œ‚Ì‰ğ•ú
+    DeleteGraph(mImageHandle);    //ï¿½æ‘œï¿½Ì‰ï¿½ï¿½
     //DeleteGraph(Handle);
     DeleteGraph(candy);
     DeleteGraph(cookie);
 }
-//XV
+//ï¿½Xï¿½V
 void Score_Update() {
-    if (CheckHitKey(KEY_INPUT_RETURN) == 1) {//EscƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        SceneMgr_ChangeScene(eScene_Menu);//ƒV[ƒ“‚ğƒQ[ƒ€‚É•ÏX
+    if (CheckHitKey(KEY_INPUT_Z) !=0) {//Escï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½
+        SceneMgr_ChangeScene(eScene_Menu);//ï¿½Vï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Qï¿½[ï¿½ï¿½ï¿½É•ÏX
     }
 
 }
 
-//•`‰æ
+//ï¿½`ï¿½ï¿½
 void Score_Draw() {
     DrawRotaGraph(320, 230, 0.9, 0.0, mImageHandle, FALSE);
-    DrawString(0, 0, "ƒXƒRƒA‰æ–Ê‚Å‚·B", GetColor(255, 255, 255));
-    DrawString(0, 20, "ƒGƒ“ƒ^[ƒL[‚ğ‰Ÿ‚·‚Æƒƒjƒ…[‰æ–Ê‚É–ß‚è‚Ü‚·B", GetColor(255, 255, 255));
-    DrawFormatString(300, 300, GetColor(255, 255, 255), "%d", 1073741824);//ƒI[ƒo[ƒtƒ[2^30
-    //DrawFormatString(300, 0, GetColor(255, 255, 255), "—Ç_%d", ryou);
-    //DrawFormatString(350, 0, GetColor(255, 255, 255), "‰Â_%d", ka);
-    //DrawFormatString(400, 0, GetColor(255, 255, 255), "•s‰Â_%d", fuka);
+    DrawString(0, 0, "ï¿½Xï¿½Rï¿½Aï¿½ï¿½Ê‚Å‚ï¿½ï¿½B", GetColor(255, 255, 255));
+    DrawString(0, 20, "Zï¿½Lï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æƒï¿½ï¿½jï¿½ï¿½ï¿½[ï¿½ï¿½Ê‚É–ß‚ï¿½Ü‚ï¿½ï¿½B", GetColor(255, 255, 255));
+    DrawFormatString(300, 300, GetColor(255, 255, 255), "%d", 1073741824);//ï¿½Iï¿½[ï¿½oï¿½[ï¿½tï¿½ï¿½ï¿½[2^30
+
 }
