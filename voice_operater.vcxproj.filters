@@ -74,11 +74,8 @@
     <ClInclude Include="Score.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-<<<<<<< HEAD
     <ClInclude Include="ScoreClass.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-=======
->>>>>>> ad0896ba1a139290b7ef343d5b13ba71d38df9de
   </ItemGroup>
 </Project>

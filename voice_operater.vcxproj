@@ -173,10 +173,7 @@
     <ClInclude Include="Move.h" />
     <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="Score.h" />
-<<<<<<< HEAD
     <ClInclude Include="ScoreClass.h" />
-=======
->>>>>>> ad0896ba1a139290b7ef343d5b13ba71d38df9de
     <ClInclude Include="tutorial.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
