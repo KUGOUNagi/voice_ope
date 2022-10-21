@@ -7,43 +7,43 @@
 #include "tutorial.h"
 #include "SceneMgr.h"
 
-static eScene mScene = eScene_Menu;    //ƒV[ƒ“ŠÇ—•Ï”
+static eScene mScene = eScene_Menu;    //ã‚·ãƒ¼ãƒ³ç®¡ç†å¤‰æ•°
 
-static eScene mNextScene = eScene_None;    //Ÿ‚ÌƒV[ƒ“ŠÇ—•Ï”
+static eScene mNextScene = eScene_None;    //æ¬¡ã®ã‚·ãƒ¼ãƒ³ç®¡ç†å¤‰æ•°
 
-static void SceneMgr_InitializeModule(eScene scene);//w’èƒ‚ƒWƒ…[ƒ‹‚ğ‰Šú‰»‚·‚é
-static void SceneMgr_FinalizeModule(eScene scene);//w’èƒ‚ƒWƒ…[ƒ‹‚ÌI—¹ˆ—‚ğs‚¤
+static void SceneMgr_InitializeModule(eScene scene);//æŒ‡å®šãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’åˆæœŸåŒ–ã™ã‚‹
+static void SceneMgr_FinalizeModule(eScene scene);//æŒ‡å®šãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã®çµ‚äº†å‡¦ç†ã‚’è¡Œã†
 
-//‰Šú‰»
+//åˆæœŸåŒ–
 void SceneMgr_Initialize() {
     SceneMgr_InitializeModule(mScene);
 }
 
-//I—¹ˆ—
+//çµ‚äº†å‡¦ç†
 void SceneMgr_Finalize() {
     SceneMgr_FinalizeModule(mScene);
 }
-//XV
+//æ›´æ–°
 void SceneMgr_Update() {
-    if (mNextScene != eScene_None) {    //Ÿ‚ÌƒV[ƒ“‚ªƒZƒbƒg‚³‚ê‚Ä‚¢‚½‚ç
-        SceneMgr_FinalizeModule(mScene);//Œ»İ‚ÌƒV[ƒ“‚ÌI—¹ˆ—‚ğÀs
-        mScene = mNextScene;    //Ÿ‚ÌƒV[ƒ“‚ğŒ»İ‚ÌƒV[ƒ“ƒZƒbƒg
-        mNextScene = eScene_None;    //Ÿ‚ÌƒV[ƒ“î•ñ‚ğƒNƒŠƒA
-        SceneMgr_InitializeModule(mScene);    //Œ»İ‚ÌƒV[ƒ“‚ğ‰Šú‰»
+    if (mNextScene != eScene_None) {    //æ¬¡ã®ã‚·ãƒ¼ãƒ³ãŒã‚»ãƒƒãƒˆã•ã‚Œã¦ã„ãŸã‚‰
+        SceneMgr_FinalizeModule(mScene);//ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã®çµ‚äº†å‡¦ç†ã‚’å®Ÿè¡Œ
+        mScene = mNextScene;    //æ¬¡ã®ã‚·ãƒ¼ãƒ³ã‚’ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã‚»ãƒƒãƒˆ
+        mNextScene = eScene_None;    //æ¬¡ã®ã‚·ãƒ¼ãƒ³æƒ…å ±ã‚’ã‚¯ãƒªã‚¢
+        SceneMgr_InitializeModule(mScene);    //ç¾åœ¨ã®ã‚·ãƒ¼ãƒ³ã‚’åˆæœŸåŒ–
     }
-    switch (mScene) {       //ƒV[ƒ“‚É‚æ‚Á‚Äˆ—‚ğ•ªŠò
-    case eScene_Menu:    //Œ»İ‚Ì‰æ–Ê‚ªƒƒjƒ…[‚È‚ç
-        Menu_Update();   //ƒƒjƒ…[‰æ–Ê‚ÌXVˆ—‚ğ‚·‚é
-        break;//ˆÈ‰º—ª
+    switch (mScene) {       //ã‚·ãƒ¼ãƒ³ã«ã‚ˆã£ã¦å‡¦ç†ã‚’åˆ†å²
+    case eScene_Menu:    //ç¾åœ¨ã®ç”»é¢ãŒãƒ¡ãƒ‹ãƒ¥ãƒ¼ãªã‚‰
+        Menu_Update();   //ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã®æ›´æ–°å‡¦ç†ã‚’ã™ã‚‹
+        break;//ä»¥ä¸‹ç•¥
     case eScene_Game:
         Game_Update();
         break;
     case eScene_Config:
         Config_Update();
         break;
-    case eScene_Move:    //Œ»İ‚Ì‰æ–Ê‚ªƒƒjƒ…[‚È‚ç
-        Move_Update();   //ƒƒjƒ…[‰æ–Ê‚ÌXVˆ—‚ğ‚·‚é
-        break;//ˆÈ‰º—ª
+    case eScene_Move:    //ç¾åœ¨ã®ç”»é¢ãŒãƒ¡ãƒ‹ãƒ¥ãƒ¼ãªã‚‰
+        Move_Update();   //ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã®æ›´æ–°å‡¦ç†ã‚’ã™ã‚‹
+        break;//ä»¥ä¸‹ç•¥
     case eScene_tutorial:
         tutorial_Update();
         break;
@@ -53,12 +53,12 @@ void SceneMgr_Update() {
     }
 }
 
-//•`‰æ
+//æç”»
 void SceneMgr_Draw() {
-    switch (mScene) {      //ƒV[ƒ“‚É‚æ‚Á‚Äˆ—‚ğ•ªŠò
-    case eScene_Menu:   //Œ»İ‚Ì‰æ–Ê‚ªƒƒjƒ…[‰æ–Ê‚È‚ç
-        Menu_Draw();    //ƒƒjƒ…[‰æ–Ê‚Ì•`‰æˆ—‚ğ‚·‚é
-        break;//ˆÈ‰º—ª
+    switch (mScene) {      //ã‚·ãƒ¼ãƒ³ã«ã‚ˆã£ã¦å‡¦ç†ã‚’åˆ†å²
+    case eScene_Menu:   //ç¾åœ¨ã®ç”»é¢ãŒãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ãªã‚‰
+        Menu_Draw();    //ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã®æç”»å‡¦ç†ã‚’ã™ã‚‹
+        break;//ä»¥ä¸‹ç•¥
     case eScene_Game:
         Game_Draw();
         break;
@@ -77,16 +77,16 @@ void SceneMgr_Draw() {
     }
 }
 
-// ˆø” nextScene ‚ÉƒV[ƒ“‚ğ•ÏX‚·‚é
+// å¼•æ•° nextScene ã«ã‚·ãƒ¼ãƒ³ã‚’å¤‰æ›´ã™ã‚‹
 void SceneMgr_ChangeScene(eScene NextScene) {
     mNextScene = NextScene;
 }
-// ˆø”sceneƒ‚ƒWƒ…[ƒ‹‚ğ‰Šú‰»‚·‚é
+// å¼•æ•°sceneãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã‚’åˆæœŸåŒ–ã™ã‚‹
 static void SceneMgr_InitializeModule(eScene scene) {
-    switch (scene) {          //ƒV[ƒ“‚É‚æ‚Á‚Äˆ—‚ğ•ªŠò
-    case eScene_Menu:       //w’è‰æ–Ê‚ªƒƒjƒ…[‰æ–Ê‚È‚ç
-        Menu_Initialize();  //ƒƒjƒ…[‰æ–Ê‚Ì‰Šú‰»ˆ—‚ğ‚·‚é
-        break;//ˆÈ‰º—ª
+    switch (scene) {          //ã‚·ãƒ¼ãƒ³ã«ã‚ˆã£ã¦å‡¦ç†ã‚’åˆ†å²
+    case eScene_Menu:       //æŒ‡å®šç”»é¢ãŒãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ãªã‚‰
+        Menu_Initialize();  //ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã®åˆæœŸåŒ–å‡¦ç†ã‚’ã™ã‚‹
+        break;//ä»¥ä¸‹ç•¥
     case eScene_Game:
         Game_Initialize();
         break;
@@ -105,12 +105,12 @@ static void SceneMgr_InitializeModule(eScene scene) {
     }
 }
 
-// ˆø”sceneƒ‚ƒWƒ…[ƒ‹‚ÌI—¹ˆ—‚ğs‚¤
+// å¼•æ•°sceneãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã®çµ‚äº†å‡¦ç†ã‚’è¡Œã†
 static void SceneMgr_FinalizeModule(eScene scene) {
-    switch (scene) {         //ƒV[ƒ“‚É‚æ‚Á‚Äˆ—‚ğ•ªŠò
-    case eScene_Menu:      //w’è‰æ–Ê‚ªƒƒjƒ…[‰æ–Ê‚È‚ç
-        Menu_Finalize();   //ƒƒjƒ…[‰æ–Ê‚ÌI—¹ˆ—ˆ—‚ğ‚·‚é
-        break;//ˆÈ‰º—ª
+    switch (scene) {         //ã‚·ãƒ¼ãƒ³ã«ã‚ˆã£ã¦å‡¦ç†ã‚’åˆ†å²
+    case eScene_Menu:      //æŒ‡å®šç”»é¢ãŒãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ãªã‚‰
+        Menu_Finalize();   //ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã®çµ‚äº†å‡¦ç†å‡¦ç†ã‚’ã™ã‚‹
+        break;//ä»¥ä¸‹ç•¥
     case eScene_Game:
         Game_Finalize();
         break;
