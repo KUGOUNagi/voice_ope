@@ -8,37 +8,35 @@
 #include <sstream>
 #define PI 3.1415926f
 
-static int mImageHandle, Handle, candy, cookie;    //‰æ‘œƒnƒ“ƒhƒ‹Ši”[—p•Ï”
+static int mImageHandle, Handle, candy, cookie,sound;    //ç”»åƒãƒãƒ³ãƒ‰ãƒ«æ ¼ç´ç”¨å¤‰æ•°
 
-//‰Šú‰»
+//åˆæœŸåŒ–
 void Score_Initialize() {
-    mImageHandle = LoadGraph("img/backgraund.png");    //‰æ‘œ‚Ìƒ[ƒh
+    mImageHandle = LoadGraph("img/backgraund.png");    //ç”»åƒã®ãƒ­ãƒ¼ãƒ‰
     candy = LoadGraph("img/candy.png");
     cookie = LoadGraph("img/cookie.png");
 }
 
-//I—¹ˆ—
+//çµ‚äº†å‡¦ç†
 void Score_Finalize() {
-    DeleteGraph(mImageHandle);    //‰æ‘œ‚Ì‰ğ•ú
+    DeleteGraph(mImageHandle);    //ç”»åƒã®è§£æ”¾
     //DeleteGraph(Handle);
     DeleteGraph(candy);
     DeleteGraph(cookie);
 }
-//XV
+//æ›´æ–°
 void Score_Update() {
-    if (CheckHitKey(KEY_INPUT_RETURN) == 1) {//EscƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        SceneMgr_ChangeScene(eScene_Menu);//ƒV[ƒ“‚ğƒQ[ƒ€‚É•ÏX
+    if (CheckHitKey(KEY_INPUT_Z) !=0) {//Escã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+        SceneMgr_ChangeScene(eScene_Menu);//ã‚·ãƒ¼ãƒ³ã‚’ã‚²ãƒ¼ãƒ ã«å¤‰æ›´
     }
 
 }
 
-//•`‰æ
+//æç”»
 void Score_Draw() {
     DrawRotaGraph(320, 230, 0.9, 0.0, mImageHandle, FALSE);
-    DrawString(0, 0, "ƒXƒRƒA‰æ–Ê‚Å‚·B", GetColor(255, 255, 255));
-    DrawString(0, 20, "ƒGƒ“ƒ^[ƒL[‚ğ‰Ÿ‚·‚Æƒƒjƒ…[‰æ–Ê‚É–ß‚è‚Ü‚·B", GetColor(255, 255, 255));
-    DrawFormatString(300, 300, GetColor(255, 255, 255), "%d", 1073741824);//ƒI[ƒo[ƒtƒ[2^30
-    //DrawFormatString(300, 0, GetColor(255, 255, 255), "—Ç_%d", ryou);
-    //DrawFormatString(350, 0, GetColor(255, 255, 255), "‰Â_%d", ka);
-    //DrawFormatString(400, 0, GetColor(255, 255, 255), "•s‰Â_%d", fuka);
+    DrawString(0, 0, "ã‚¹ã‚³ã‚¢ç”»é¢ã§ã™ã€‚", GetColor(255, 255, 255));
+    DrawString(0, 20, "Zã‚­ãƒ¼ã‚’æŠ¼ã™ã¨ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã«æˆ»ã‚Šã¾ã™ã€‚", GetColor(255, 255, 255));
+    DrawFormatString(300, 300, GetColor(255, 255, 255), "%d", 1073741824);//ã‚ªãƒ¼ãƒãƒ¼ãƒ•ãƒ­ãƒ¼2^30
+
 }

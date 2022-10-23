@@ -1,22 +1,22 @@
 #include "DxLib.h"
 
-static int m_Key[256];  // ƒL[‚Ì“ü—Íó‘ÔŠi”[—p•Ï”
+static int m_Key[256];  // ã‚­ãƒ¼ã®å…¥åŠ›çŠ¶æ…‹æ ¼ç´ç”¨å¤‰æ•°
 
-// ƒL[‚Ì“ü—Íó‘ÔXV
+// ã‚­ãƒ¼ã®å…¥åŠ›çŠ¶æ…‹æ›´æ–°
 void Keyboard_Update() {
-    char tmpKey[256];             // Œ»İ‚ÌƒL[‚Ì“ü—Íó‘Ô‚ğŠi”[‚·‚é
-    GetHitKeyStateAll(tmpKey);  // ‘S‚Ä‚ÌƒL[‚Ì“ü—Íó‘Ô‚ğ“¾‚é
+    char tmpKey[256];             // ç¾åœ¨ã®ã‚­ãƒ¼ã®å…¥åŠ›çŠ¶æ…‹ã‚’æ ¼ç´ã™ã‚‹
+    GetHitKeyStateAll(tmpKey);  // å…¨ã¦ã®ã‚­ãƒ¼ã®å…¥åŠ›çŠ¶æ…‹ã‚’å¾—ã‚‹
     for (int i = 0; i < 256; i++) {
-        if (tmpKey[i] != 0) { // i”Ô‚ÌƒL[ƒR[ƒh‚É‘Î‰‚·‚éƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-            m_Key[i]++;   // ‰ÁZ
+        if (tmpKey[i] != 0) { // iç•ªã®ã‚­ãƒ¼ã‚³ãƒ¼ãƒ‰ã«å¯¾å¿œã™ã‚‹ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+            m_Key[i]++;   // åŠ ç®—
         }
-        else {              // ‰Ÿ‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î
-            m_Key[i] = 0; // 0‚É‚·‚é
+        else {              // æŠ¼ã•ã‚Œã¦ã„ãªã‘ã‚Œã°
+            m_Key[i] = 0; // 0ã«ã™ã‚‹
         }
     }
 }
 
-// KeyCode‚ÌƒL[‚Ì“ü—Íó‘Ô‚ğæ“¾‚·‚é
+// KeyCodeã®ã‚­ãƒ¼ã®å…¥åŠ›çŠ¶æ…‹ã‚’å–å¾—ã™ã‚‹
 int Keyboard_Get(int KeyCode) {
-    return m_Key[KeyCode]; // KeyCode‚Ì“ü—Íó‘Ô‚ğ•Ô‚·
+    return m_Key[KeyCode]; // KeyCodeã®å…¥åŠ›çŠ¶æ…‹ã‚’è¿”ã™
 }

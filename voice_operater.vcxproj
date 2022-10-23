@@ -157,6 +157,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="JuiusClient.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="ScoreClass.cpp" />
     <ClCompile Include="tutorial.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="main.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Move.h" />
     <ClInclude Include="SceneMgr.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="ScoreClass.h" />
     <ClInclude Include="tutorial.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -8,37 +8,39 @@
 #include <sstream>
 #define PI 3.1415926f
 
-static int mImageHandle, Handle, candy, cookie;    //‰æ‘œƒnƒ“ƒhƒ‹Ši”[—p•Ï”
+static int mImageHandle, Handle, bag;   //ç”»åƒãƒãƒ³ãƒ‰ãƒ«æ ¼ç´ç”¨å¤‰æ•°
+int bag_x = 280, speed = 2;
 
-//‰Šú‰»
+//åˆæœŸåŒ–
 void tutorial_Initialize() {
-    mImageHandle = LoadGraph("img/backgraund.png");    //‰æ‘œ‚Ìƒ[ƒh
-    candy = LoadGraph("img/candy.png");
-    cookie = LoadGraph("img/cookie.png");
+    mImageHandle = LoadGraph("img/backgraund.png");    //ç”»åƒã®ãƒ­ãƒ¼ãƒ‰
+    bag = LoadGraph("img/bag.png");
 }
 
-//I—¹ˆ—
+//çµ‚äº†å‡¦ç†
 void tutorial_Finalize() {
-    DeleteGraph(mImageHandle);    //‰æ‘œ‚Ì‰ğ•ú
+    DeleteGraph(mImageHandle);    //ç”»åƒã®è§£æ”¾
     //DeleteGraph(Handle);
-    DeleteGraph(candy);
-    DeleteGraph(cookie);
+    DeleteGraph(bag);
 }
-//XV
+//æ›´æ–°
 void tutorial_Update() {
-    if (CheckHitKey(KEY_INPUT_B) != 0) {//EscƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        SceneMgr_ChangeScene(eScene_Game);//ƒV[ƒ“‚ğƒQ[ƒ€‚É•ÏX
+    if (Keyboard_Get(KEY_INPUT_RETURN) == 1) {//ã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+        SceneMgr_ChangeScene(eScene_Game);//ã‚·ãƒ¼ãƒ³ã‚’ã‚²ãƒ¼ãƒ ã«å¤‰æ›´
     }
-
+        if (Keyboard_Get(KEY_INPUT_RIGHT) != 0) { 
+        bag_x=bag_x+speed;                       //å³ã«ç§»å‹•
+    }
+    if (Keyboard_Get(KEY_INPUT_LEFT) != 0) { 
+        bag_x=bag_x-speed;                       //å·¦ã«ç§»å‹•
+    }
 }
 
-//•`‰æ
+//æç”»
 void tutorial_Draw() {
     DrawRotaGraph(320, 230, 0.9, 0.0, mImageHandle, FALSE);
-    DrawString(0, 0, "ƒ`ƒ…[ƒgƒŠƒAƒ‹‰æ–Ê‚Å‚·B", GetColor(255, 255, 255));
-    DrawString(0, 20, "BƒL[‚ğ‰Ÿ‚·‚ÆƒQ[ƒ€‰æ–Ê‚ÉˆÚ‚è‚Ü‚·B", GetColor(255, 255, 255));
+    DrawRotaGraph(bag_x, 330, 0.7, 0.0, bag, TRUE);
+    DrawString(0, 0, "ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ç”»é¢ã§ã™ã€‚", GetColor(255, 255, 255));
+    DrawString(0, 20, "ã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼ã‚’æŠ¼ã™ã¨ã‚²ãƒ¼ãƒ ç”»é¢ã«ç§»ã‚Šã¾ã™ã€‚", GetColor(255, 255, 255));
     DrawFormatString(0, 40, GetColor(255, 255, 255), "%d", 5);
-    //DrawFormatString(300, 0, GetColor(255, 255, 255), "—Ç_%d", ryou);
-    //DrawFormatString(350, 0, GetColor(255, 255, 255), "‰Â_%d", ka);
-    //DrawFormatString(400, 0, GetColor(255, 255, 255), "•s‰Â_%d", fuka);
 }

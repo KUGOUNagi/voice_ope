@@ -8,9 +8,10 @@
 #include <sstream>
 #define PI 3.1415926f
 
-static int mImageHandle, Handle, don, katt;    //‰æ‘œƒnƒ“ƒhƒ‹Ši”[—p•Ï”
-int y = -8000, hantei = 3, interval = 100, bpm = 30, kaunto, ryou, ka, fuka;
+static int mImageHandle, Handle, sounds, candy, cookie, bag;    //ç”»åƒãƒãƒ³ãƒ‰ãƒ«æ ¼ç´ç”¨å¤‰æ•°
+int y = 0, hantei = 3, interval = 100, bpm = 30, speeds = 2, bags_x = 280;
 FILE* fp;
+
 int a[] = { 0,0,0,1,0,2,0,0,0,1,0,1,0,2,0,0,0,1,0,1,0,
 2,0,1,0,2,0,1,0,2,0,0,0,2,0,1,0,0,0,2,0,2,0,1,0,0,0,1,
 0,2,0,1,0,2,0,1,0,1,0,2,0,0,0,1,0,2,0,0,0,1,0,1,0,2,0,
@@ -19,7 +20,18 @@ int a[] = { 0,0,0,1,0,2,0,0,0,1,0,1,0,2,0,0,0,1,0,1,0,
 1,0,1,0,2,0,0,0,1,0,1,0,2,0,1,0,2,0,1,0,2,0,0,0,2,0,1,
 0,0,0,2,0,2,0,1,0,0,0,1,0,2,0,1,0,2,0,1,0,1,0,2,0,0,0,
 1,0,2,0,0,0,1,0,1,0,2,0,0,0,1,0,1,0,2,0,1,0,2,0,1,0,2,
-0,0,0,2,0,1,0,0,0,2,0,2,0,1,0,0,0,1,0,2,0,1,0,2,0,1,0,1,0,2, };
+0,0,0,2,0,1,0,0,0,2,0,2,0,1,0,0,0,1,0,2,0,1,0,2,0,1,0,1,0,2, };//ãƒªã‚»ãƒƒãƒˆç”¨ã®é…åˆ—
+
+int reen[] = { 0,0,0,1,0,2,0,0,0,1,0,1,0,2,0,0,0,1,0,1,0,
+2,0,1,0,2,0,1,0,2,0,0,0,2,0,1,0,0,0,2,0,2,0,1,0,0,0,1,
+0,2,0,1,0,2,0,1,0,1,0,2,0,0,0,1,0,2,0,0,0,1,0,1,0,2,0,
+0,0,1,0,1,0,2,0,1,0,2,0,1,0,2,0,0,0,2,0,1,0,0,0,2,0,2,
+0,1,0,0,0,1,0,2,0,1,0,2,0,1,0,1,0,2,0,0,0,1,0,2,0,0,0,
+1,0,1,0,2,0,0,0,1,0,1,0,2,0,1,0,2,0,1,0,2,0,0,0,2,0,1,
+0,0,0,2,0,2,0,1,0,0,0,1,0,2,0,1,0,2,0,1,0,1,0,2,0,0,0,
+1,0,2,0,0,0,1,0,1,0,2,0,0,0,1,0,1,0,2,0,1,0,2,0,1,0,2,
+0,0,0,2,0,1,0,0,0,2,0,2,0,1,0,0,0,1,0,2,0,1,0,2,0,1,0,1,0,2, };//ãƒ¬ãƒ¼ãƒ³ã®é…åˆ—
+
 int fumen[] = { 0,0,0,1,0,2,0,0,0,1,0,1,0,2,0,0,0,1,0,
 1,0,2,0,1,0,2,0,1,0,2,0,0,0,2,0,1,0,0,0,2,0,2,0,1,0,0,
 0,1,0,2,0,1,0,2,0,1,0,1,0,2,0,0,0,1,0,2,0,0,0,1,0,1,0,
@@ -28,116 +40,111 @@ int fumen[] = { 0,0,0,1,0,2,0,0,0,1,0,1,0,2,0,0,0,1,0,
 0,0,1,0,1,0,2,0,0,0,1,0,1,0,2,0,1,0,2,0,1,0,2,0,0,0,2,
 0,1,0,0,0,2,0,2,0,1,0,0,0,1,0,2,0,1,0,2,0,1,0,1,0,2,0,
 0,0,1,0,2,0,0,0,1,0,1,0,2,0,0,0,1,0,1,0,2,0,1,0,2,0,1,
-0,2,0,0,0,2,0,1,0,0,0,2,0,2,0,1,0,0,0,1,0,2,0,1,0,2,0,1,0,1,0,2, };
-int fumenn = FileRead_open("fumenn.txt");
-//‰Šú‰»
+0,2,0,0,0,2,0,1,0,0,0,2,0,2,0,1,0,0,0,1,0,2,0,1,0,2,0,1,0,1,0,2, };//ç”»åƒã®é…åˆ—
+
+//åˆæœŸåŒ–
 void Game_Initialize() {
-    mImageHandle = LoadGraph("img/backgraund.png");    //‰æ‘œ‚Ìƒ[ƒh
-    don = LoadGraph("img/candy.png");
-    katt = LoadGraph("img/cookie.png");
+    sounds = LoadSoundMem("sound/music.wav");
+    mImageHandle = LoadGraph("img/backgraund.png");    //ç”»åƒã®ãƒ­ãƒ¼ãƒ‰
+    candy = LoadGraph("img/candy.png");
+    cookie = LoadGraph("img/cookie.png");
+    bag = LoadGraph("img/bag.png");
+    PlaySoundMem(sounds, DX_PLAYTYPE_BACK,TRUE);
 }
 
-//I—¹ˆ—
+//çµ‚äº†å‡¦ç†
 void Game_Finalize() {
-    DeleteGraph(mImageHandle);    //‰æ‘œ‚Ì‰ğ•ú
-    //DeleteGraph(Handle);
-    DeleteGraph(don);
-    DeleteGraph(katt);
+    DeleteGraph(mImageHandle);    //ç”»åƒã®è§£æ”¾
+    DeleteGraph(candy);
+    DeleteGraph(cookie);
+    DeleteGraph(bag);
+    DeleteSoundMem(sounds);
 }
-//XV
+//æ›´æ–°
 void Game_Update() {
     for (int i = 0; i < 1; i++) {
         y = y + (interval / bpm);
-        if (CheckHitKey(KEY_INPUT_B) != 0) {
-            y = -8000;
-        }
-    }//[‘¤‚É‚¸‚ç‚·
+    }
+
     for (int j = 0; j < (sizeof(a) / sizeof(a[0])); j++) {
-        if (fumen[j] == 1 || fumen[j] == 3) {
-            fumen[j] = don;
+        if (fumen[j] == 1 || fumen[j] == 3) {//é…åˆ—å†…ã®æ•°å­—ã«ã‚ˆã£ã¦å‡ºåŠ›ã‚’å¤‰æ›´
+            fumen[j] = candy;
         }
         if (fumen[j] == 2 || fumen[j] == 4) {
-            fumen[j] = katt;
-        }
-    }//”z—ñ“à‚Ì”š‚É‚æ‚Á‚Äo—Í‚ğ•ÏX
-    if (fumen[hantei] != don || fumen[hantei] != katt) {
-        if (a[hantei] == 0) {
-            hantei++;
+            fumen[j] = cookie;
         }
     }
-    if (CheckHitKey(KEY_INPUT_S) != 0) {//EscƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        for (int i = 0; i < (sizeof(a) / sizeof(a[0])); i++) {
+
+    if (Keyboard_Get(KEY_INPUT_RETURN) == 1) {//ã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+        for (int i = 0; i < (sizeof(a) / sizeof(a[0])); i++) {//ãƒªã‚»ãƒƒãƒˆ
             fumen[i] = a[i];
+            reen[i] = a[i];
         }
-        Game_Initialize();
-        SceneMgr_ChangeScene(eScene_Score);//ƒV[ƒ“‚ğƒƒjƒ…[‚É•ÏX
+        StopSoundMem(sounds);
+        bags_x = 280;
+        y = 0;
+        Game_Initialize();//ãƒªã‚»ãƒƒãƒˆ
+        SceneMgr_ChangeScene(eScene_Score);//ã‚·ãƒ¼ãƒ³ã‚’ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«å¤‰æ›´
     }
-    if (Keyboard_Get(KEY_INPUT_G) == 1 || Keyboard_Get(KEY_INPUT_H) == 1) {//G,HƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        if (fumen[hantei] == don) {
-            if (197 <= 2 + y + interval * hantei && 2 + y + interval * hantei <= 207) {
-                ryou++;
-            }
-            if (192 <= 2 + y + interval * hantei && 197 > 2 + y + interval * hantei || 2 + y + interval * hantei > 207 && 2 + y + interval * hantei <= 212) {
-                ka++;
-            }
-            if (192 > 2 + y + interval * hantei || 2 + y + interval * hantei > 212) {
-                fuka++;
-            }
-        }
-        if (fumen[hantei] == katt) {
-            fuka++;
-        }
-        //2 + x + kannkaku * hantei;
-        fumen[hantei] = 0;
-        hantei++;
+
+    if (Keyboard_Get(KEY_INPUT_RIGHT) != 0) { 
+        bags_x = bags_x + speeds;                       // å³ã«ç§»å‹•
     }
-    if (Keyboard_Get(KEY_INPUT_F) == 1 || Keyboard_Get(KEY_INPUT_J) == 1) {//F,JƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        if (fumen[hantei] == katt) {
-            if (197 <= 2 + y + interval * hantei && 2 + y + interval * hantei <= 207) {
-                ryou++;
-            }
-            if (192 <= 2 + y + interval * hantei && 197 > 2 + y + interval * hantei || 2 + y + interval * hantei > 207 && 2 + y + interval * hantei <= 212) {
-                ka++;
-            }
-            if (192 > 2 + y + interval * hantei || 2 + y + interval * hantei > 212) {
-                fuka++;
-            }
-        }
-        if (fumen[hantei] == don) {
-            fuka++;
-        }
-        //2 + x + interval * hantei;
-        fumen[hantei] = 0;
-        hantei++;
+    if (Keyboard_Get(KEY_INPUT_LEFT) != 0) { 
+        bags_x = bags_x - speeds;                       // å·¦ã«ç§»å‹•
     }
-    /*if (Keyboard_Get(KEY_INPUT_RIGHT) == 1) {//‰EƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        x = x + 10;//‚˜‚ğˆê‚Â‚¸‚ç‚·
-    }*/
 
 }
 
-//•`‰æ
+//æç”»
 void Game_Draw() {
-    DrawRotaGraph(320, 230, 1.1, 0.0, mImageHandle, FALSE);
+    DrawRotaGraph(320, 230, 0.9, 0.0, mImageHandle, FALSE);//èƒŒæ™¯
+    
     for (int i = 0; i < (sizeof(a) / sizeof(a[0])); i++) {
         if (a[i] == 1) {
-            DrawRotaGraph(176, y + interval * i, 0.7, 0.0, fumen[i], TRUE);//‚¿‚¢‚³‚¢ƒhƒ“
+            if (reen[i] == 1) {
+                DrawRotaGraph(176 * 1, y - interval * i, 0.7, 0.0, fumen[i], TRUE);//ï¼‘ç¨®é¡ç›®ã€1ãƒ¬ãƒ¼ãƒ³
+            }
+            if (reen[i] == 2) {
+                DrawRotaGraph(176 * 2, y - interval * i, 0.7, 0.0, fumen[i], TRUE);//ï¼‘ç¨®é¡ç›®ã€ï¼’ãƒ¬ãƒ¼ãƒ³
+            }
         }
         if (a[i] == 2) {
-            DrawRotaGraph(176, y + interval * i, 0.7, 0.0, fumen[i], TRUE);//‚¿‚¢‚³‚¢ƒJƒb
+            if (reen[i] == 1) {
+                DrawRotaGraph(176 * 1, y - interval * i, 0.7, 0.0, fumen[i], TRUE);//ï¼’ç¨®é¡ç›®ã€1ãƒ¬ãƒ¼ãƒ³
+            }
+            if (reen[i] == 2) {
+                DrawRotaGraph(176 * 2, y - interval * i, 0.7, 0.0, fumen[i], TRUE);//ï¼’ç¨®é¡ç›®ã€ï¼’ãƒ¬ãƒ¼ãƒ³
+            }
         }
         if (a[i] == 3) {
-            DrawRotaGraph(176, y + interval * i, 0.7, 0.0, fumen[i], TRUE);//‚¨‚¨‚«‚¢ƒhƒ“
+            if (reen[i] == 1) {
+                DrawRotaGraph(176 * 1, y - interval * i, 0.7, 0.0, fumen[i], TRUE);//ï¼“ç¨®é¡ç›®ã€1ãƒ¬ãƒ¼ãƒ³
+            }
+            if (reen[i] == 2) {
+                DrawRotaGraph(176 * 2, y - interval * i, 0.7, 0.0, fumen[i], TRUE);//ï¼“ç¨®é¡ç›®ã€ï¼’ãƒ¬ãƒ¼ãƒ³
+            }
         }
         if (a[i] == 4) {
-            DrawRotaGraph(176, y + interval * i, 0.7, 0.0, fumen[i], TRUE);//‚¨‚¨‚«‚¢ƒJƒb
+            if (reen[i] == 1) {
+                DrawRotaGraph(176 * 1, y - interval * i, 0.7, 0.0, fumen[i], TRUE);//ï¼”ç¨®é¡ç›®ã€1ãƒ¬ãƒ¼ãƒ³
+            }
+            if (reen[i] == 2) {
+                DrawRotaGraph(176 * 2, y - interval * i, 0.7, 0.0, fumen[i], TRUE);//ï¼”ç¨®é¡ç›®ã€ï¼’ãƒ¬ãƒ¼ãƒ³
+            }
+        }
+        if (a[i] == 5) {
+            if (reen[i] == 1) {
+                DrawRotaGraph(176 * 1, y - interval * i, 0.7, 0.0, fumen[i], TRUE);//ï¼•ç¨®é¡ç›®ã€1ãƒ¬ãƒ¼ãƒ³
+            }
+            if (reen[i] == 2) {
+                DrawRotaGraph(176 * 2, y - interval * i, 0.7, 0.0, fumen[i], TRUE);//ï¼•ç¨®é¡ç›®ã€ï¼’ãƒ¬ãƒ¼ãƒ³
+            }
         }
     }
-    //DrawRotaGraph(82, 185, 1.5, 0.0, Handle, FALSE);
-    //DrawString(0, 0, "ƒQ[ƒ€‰æ–Ê‚Å‚·B", GetColor(255, 255, 255));
-    DrawString(0, 20, "SƒL[‚ğ‰Ÿ‚·‚ÆƒŠƒUƒ‹ƒg‚ÉˆÚ‚è‚Ü‚·B", GetColor(255, 255, 255));
-    DrawFormatString(0, 40, GetColor(255, 255, 255), "%d", interval);
-    DrawFormatString(300, 0, GetColor(255, 255, 255), "—Ç_%d", ryou);
-    DrawFormatString(350, 0, GetColor(255, 255, 255), "‰Â_%d", ka);
-    DrawFormatString(400, 0, GetColor(255, 255, 255), "•s‰Â_%d", fuka);
+
+    
+    DrawString(0, 20, "ã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼ã‚’æŠ¼ã™ã¨ãƒªã‚¶ãƒ«ãƒˆã«ç§»ã‚Šã¾ã™ã€‚", GetColor(255, 255, 255));
+    DrawRotaGraph(bags_x, 310, 0.6, 0.0, bag, TRUE);
+    DrawFormatString(250, 0, GetColor(255, 255, 255), "ã‚¹ã‚³ã‚¢_%d", bags_x);
 }

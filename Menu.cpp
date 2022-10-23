@@ -3,78 +3,78 @@
 #include "DxLib.h"
 #include "Keyboard.h"
 
-const static int GAME_Y = 240;    //uƒQ[ƒ€v•¶š‚ÌyˆÊ’u
-const static int CONFIG_Y = 270;    //uİ’èv•¶š‚ÌyˆÊ’u
+const static int GAME_Y = 240;    //ã€Œã‚²ãƒ¼ãƒ ã€æ–‡å­—ã®yä½ç½®
+const static int CONFIG_Y = 270;    //ã€Œè¨­å®šã€æ–‡å­—ã®yä½ç½®
 const static int MOVE_Y = 300;
 
-static int mImageHandle;    //‰æ‘œƒnƒ“ƒhƒ‹Ši”[—p•Ï”
+static int mImageHandle;    //ç”»åƒãƒãƒ³ãƒ‰ãƒ«æ ¼ç´ç”¨å¤‰æ•°
 
-//‰Šú‰»
+//åˆæœŸåŒ–
 void Menu_Initialize() {
-    mImageHandle = LoadGraph("img/danzyon1.jpeg");    //‰æ‘œ‚Ìƒ[ƒh
+    mImageHandle = LoadGraph("img/danzyon1.jpeg");    //ç”»åƒã®ãƒ­ãƒ¼ãƒ‰
 }
 
-//I—¹ˆ—
+//çµ‚äº†å‡¦ç†
 void Menu_Finalize() {
-    DeleteGraph(mImageHandle);    //‰æ‘œ‚Ì‰ğ•ú
+    DeleteGraph(mImageHandle);    //ç”»åƒã®è§£æ”¾
 }
 typedef enum {
     eMune_tutorial,
-    //eMenu_Game,        //ƒQ[ƒ€
-    eMenu_Config,    //İ’è
+    //eMenu_Game,        //ã‚²ãƒ¼ãƒ 
+    eMenu_Config,    //è¨­å®š
     eMenu_Move,
 
-    eMenu_Num,        //–{€–Ú‚Ì”
+    eMenu_Num,        //æœ¬é …ç›®ã®æ•°
 } eMenu;
 
-static int NowSelect = eMune_tutorial;    //Œ»İ‚Ì‘I‘ğó‘Ô(‰Šú‚ÍƒQ[ƒ€‘I‘ğ’†)
+static int NowSelect = eMune_tutorial;    //ç¾åœ¨ã®é¸æŠçŠ¶æ…‹(åˆæœŸã¯ã‚²ãƒ¼ãƒ é¸æŠä¸­)
 
-//XV
+//æ›´æ–°
 void Menu_Update() {
-    if (Keyboard_Get(KEY_INPUT_DOWN) == 1) {//‰ºƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        NowSelect = (NowSelect + 1) % eMenu_Num;//‘I‘ğó‘Ô‚ğˆê‚Â‰º‚°‚é
+    if (Keyboard_Get(KEY_INPUT_DOWN) == 1) {//ä¸‹ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+        NowSelect = (NowSelect + 1) % eMenu_Num;//é¸æŠçŠ¶æ…‹ã‚’ä¸€ã¤ä¸‹ã’ã‚‹
     }
-    if (Keyboard_Get(KEY_INPUT_UP) == 1) {//ãƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        NowSelect = (NowSelect + (eMenu_Num - 1)) % eMenu_Num;//‘I‘ğó‘Ô‚ğˆê‚Âã‚°‚é
+    if (Keyboard_Get(KEY_INPUT_UP) == 1) {//ä¸Šã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+        NowSelect = (NowSelect + (eMenu_Num - 1)) % eMenu_Num;//é¸æŠçŠ¶æ…‹ã‚’ä¸€ã¤ä¸Šã’ã‚‹
     }
-    if (Keyboard_Get(KEY_INPUT_RETURN) == 1) {//ƒGƒ“ƒ^[ƒL[‚ª‰Ÿ‚³‚ê‚½‚ç
-        switch (NowSelect) {//Œ»İ‘I‘ğ’†‚Ìó‘Ô‚É‚æ‚Á‚Äˆ—‚ğ•ªŠò
-        case eMune_tutorial://ƒQ[ƒ€‘I‘ğ’†‚È‚ç
-            SceneMgr_ChangeScene(eScene_tutorial);//ƒV[ƒ“‚ğƒQ[ƒ€‰æ–Ê‚É•ÏX
+    if (Keyboard_Get(KEY_INPUT_RETURN) == 1) {//ã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰
+        switch (NowSelect) {//ç¾åœ¨é¸æŠä¸­ã®çŠ¶æ…‹ã«ã‚ˆã£ã¦å‡¦ç†ã‚’åˆ†å²
+        case eMune_tutorial://ã‚²ãƒ¼ãƒ é¸æŠä¸­ãªã‚‰
+            SceneMgr_ChangeScene(eScene_tutorial);//ã‚·ãƒ¼ãƒ³ã‚’ã‚²ãƒ¼ãƒ ç”»é¢ã«å¤‰æ›´
             break;
-        case eMenu_Config://İ’è‘I‘ğ’†‚È‚ç
-            SceneMgr_ChangeScene(eScene_Config);//ƒV[ƒ“‚ğİ’è‰æ–Ê‚É•ÏX
+        case eMenu_Config://è¨­å®šé¸æŠä¸­ãªã‚‰
+            SceneMgr_ChangeScene(eScene_Config);//ã‚·ãƒ¼ãƒ³ã‚’è¨­å®šç”»é¢ã«å¤‰æ›´
             break;
-        case eMenu_Move://ƒQ[ƒ€‘I‘ğ’†‚È‚ç
-            SceneMgr_ChangeScene(eScene_Move);//ƒV[ƒ“‚ğƒQ[ƒ€‰æ–Ê‚É•ÏX
+        case eMenu_Move://ã‚²ãƒ¼ãƒ é¸æŠä¸­ãªã‚‰
+            SceneMgr_ChangeScene(eScene_Move);//ã‚·ãƒ¼ãƒ³ã‚’ã‚²ãƒ¼ãƒ ç”»é¢ã«å¤‰æ›´
             break;
         }
     }
 }
 
-//•`‰æ
+//æç”»
 void Menu_Draw() {
     //DrawGraph(0, 0, mImageHandle, FALSE);
     DrawRotaGraph(320, 230, 1.7, 0.0, mImageHandle, FALSE);
     SetFontSize(50);
     DrawString(140, 70, "VOICE OPERATER", GetColor(255, 255, 255));
     SetFontSize(16);
-    DrawString(170, 170, "º‚Å‘€ì‚µ‚ÄƒnƒCƒXƒRƒA‚ğ‘_‚¨‚¤II", GetColor(255, 255, 255));
-    DrawString(280, GAME_Y, "ƒQ[ƒ€‚ğn‚ß‚é", GetColor(255, 255, 255));
-    DrawString(280, CONFIG_Y, "İ’è", GetColor(255, 255, 255));
-    DrawString(280, MOVE_Y, "“®‰æ", GetColor(255, 255, 255));
+    DrawString(170, 170, "å£°ã§æ“ä½œã—ã¦ãƒã‚¤ã‚¹ã‚³ã‚¢ã‚’ç‹™ãŠã†ï¼ï¼", GetColor(255, 255, 255));
+    DrawString(280, GAME_Y, "ã‚²ãƒ¼ãƒ ã‚’å§‹ã‚ã‚‹", GetColor(255, 255, 255));
+    DrawString(280, CONFIG_Y, "è¨­å®š", GetColor(255, 255, 255));
+    DrawString(280, MOVE_Y, "ãƒ«ãƒ¼ãƒ«èª¬æ˜", GetColor(255, 255, 255));
     int y = 0;
-    switch (NowSelect) {//Œ»İ‚Ì‘I‘ğó‘Ô‚É]‚Á‚Äˆ—‚ğ•ªŠò
-    case eMune_tutorial://ƒQ[ƒ€‘I‘ğ’†‚È‚ç
-        y = GAME_Y;    //ƒQ[ƒ€‚ÌÀ•W‚ğŠi”[
-        y = GAME_Y;    //ƒQ[ƒ€‚ÌÀ•W‚ğŠi”[
+    switch (NowSelect) {//ç¾åœ¨ã®é¸æŠçŠ¶æ…‹ã«å¾“ã£ã¦å‡¦ç†ã‚’åˆ†å²
+    case eMune_tutorial://ã‚²ãƒ¼ãƒ é¸æŠä¸­ãªã‚‰
+        y = GAME_Y;    //ã‚²ãƒ¼ãƒ ã®åº§æ¨™ã‚’æ ¼ç´
+        y = GAME_Y;    //ã‚²ãƒ¼ãƒ ã®åº§æ¨™ã‚’æ ¼ç´
         break;
-    case eMenu_Config://İ’è‘I‘ğ’†‚È‚ç
-        y = CONFIG_Y;    //İ’è‚ÌÀ•W‚ğŠi”[
+    case eMenu_Config://è¨­å®šé¸æŠä¸­ãªã‚‰
+        y = CONFIG_Y;    //è¨­å®šã®åº§æ¨™ã‚’æ ¼ç´
         break;
-    case eMenu_Move://İ’è‘I‘ğ’†‚È‚ç
-        y = MOVE_Y;    //İ’è‚ÌÀ•W‚ğŠi”[
+    case eMenu_Move://è¨­å®šé¸æŠä¸­ãªã‚‰
+        y = MOVE_Y;    //è¨­å®šã®åº§æ¨™ã‚’æ ¼ç´
         break;
     }
-    DrawString(250, y, "¡", GetColor(255, 255, 255));
+    DrawString(250, y, "â– ", GetColor(255, 255, 255));
 }

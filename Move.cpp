@@ -2,32 +2,33 @@
 #include "SceneMgr.h"
 #include "DxLib.h"
 #include "Keyboard.h"
+#include "ScoreClass.h"
 
-static int kirito, mImageHandle;
+static int mImageHandle;
+Score score;
 
 void Move_Initialize() {
-	kirito = LoadGraph("img/kirito02.png");
-	mImageHandle = LoadGraph("img/danzyon1.jpeg");    //‰æ‘œ‚Ìƒ[ƒh
+	mImageHandle = LoadGraph("img/danzyon1.jpeg");    //ç”»åƒã®ãƒ­ãƒ¼ãƒ‰
 }
 void Move_Finalize() {
-	DeleteGraph(kirito);
 }
-//XV
+//æ›´æ–°
 void Move_Update() {
-	if (CheckHitKey(KEY_INPUT_G) != 0) {//GƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-		SceneMgr_ChangeScene(eScene_Game);//ƒV[ƒ“‚ğƒQ[ƒ€‰æ–Ê‚É•ÏX
+	if (CheckHitKey(KEY_INPUT_G) != 0) {//Gã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+		SceneMgr_ChangeScene(eScene_Game);//ã‚·ãƒ¼ãƒ³ã‚’ã‚²ãƒ¼ãƒ ç”»é¢ã«å¤‰æ›´
 	}
-	if (CheckHitKey(KEY_INPUT_ESCAPE) != 0) {//EscƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-		SceneMgr_ChangeScene(eScene_Menu);//ƒV[ƒ“‚ğƒƒjƒ…[‚É•ÏX
+	if (CheckHitKey(KEY_INPUT_ESCAPE) != 0) {//Escã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+		SceneMgr_ChangeScene(eScene_Menu);//ã‚·ãƒ¼ãƒ³ã‚’ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«å¤‰æ›´
 	}
-	if (CheckHitKey(KEY_INPUT_F) != 0) {//EscƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-		SceneMgr_ChangeScene(eScene_Menu);//ƒV[ƒ“‚ğƒƒjƒ…[‚É•ÏX
+	if (CheckHitKey(KEY_INPUT_M) != 0) {//Mã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+		SceneMgr_ChangeScene(eScene_Menu);//ã‚·ãƒ¼ãƒ³ã‚’ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«å¤‰æ›´
 	}
 }
 
-//•`‰æ
+//æç”»
 void Move_Draw() {
+	score.c;
+	score.print1();
 	DrawRotaGraph(320, 230, 1, 0.0, mImageHandle, FALSE);
-	DrawString(0, 20, "GƒL[‚ğ‰Ÿ‚·‚Æƒƒjƒ…[‰æ–Ê‚É–ß‚è‚Ü‚·B", GetColor(255, 255, 255));
-	DrawRotaGraph(300, 255, 1, 0.0, kirito, TRUE);
+	DrawString(0, 20, "Mã‚­ãƒ¼ã‚’æŠ¼ã™ã¨ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã«æˆ»ã‚Šã¾ã™ã€‚", GetColor(255, 255, 255));
 }

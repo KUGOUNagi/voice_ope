@@ -3,80 +3,95 @@
 #include "DxLib.h"
 #include "Keyboard.h"
 
-const static int GAME_Y = 240;    //uƒQ[ƒ€v•¶š‚ÌyˆÊ’u
-const static int CONFIG_Y = 270;    //uİ’èv•¶š‚ÌyˆÊ’u
-const static int MOVE_Y = 300;
+const static int SPEED_Y = 200;    //ã€Œã‚²ãƒ¼ãƒ ã€æ–‡å­—ã®yä½ç½®
+const static int DIFF_Y = 220;    //ã€Œè¨­å®šã€æ–‡å­—ã®yä½ç½®
+const static int MOVE_Y = 240;
+const static int RULE_Y = 260;
 
-static int mImageHandle;    //‰æ‘œƒnƒ“ƒhƒ‹Ši”[—p•Ï”
+static int mImageHandle;    //ç”»åƒãƒãƒ³ãƒ‰ãƒ«æ ¼ç´ç”¨å¤‰æ•°
 int z = 550, sikaku1 = 0;
 int sikaku[] = { 60,80,100,120,140 };
 
-//‰Šú‰»
+//åˆæœŸåŒ–
 void Config_Initialize() {
-    mImageHandle = LoadGraph("img/danzyon.jpeg");    //‰æ‘œ‚Ìƒ[ƒh
+    mImageHandle = LoadGraph("img/danzyon.jpeg");    //ç”»åƒã®ãƒ­ãƒ¼ãƒ‰
 }
 
-//I—¹ˆ—
+//çµ‚äº†å‡¦ç†
 void Config_Finalize() {
-    DeleteGraph(mImageHandle);//‰æ‘œ‚Ì‰ğ•ú
+    DeleteGraph(mImageHandle);//ç”»åƒã®è§£æ”¾
 }
 typedef enum {
-    eMenu_Game,        //ƒQ[ƒ€
-    eMenu_Config,    //İ’è
+    eMenu_Speed,        //ã‚²ãƒ¼ãƒ 
+    eMenu_Diff,    //è¨­å®š
     eMenu_Move,
+    eMenu_Rule,
 
-    eMenu_Num,        //–{€–Ú‚Ì”
+    eMenu_Num,        //æœ¬é …ç›®ã®æ•°
 } eMenu;
 
-static int NowSelect = eMenu_Game;    //Œ»İ‚Ì‘I‘ğó‘Ô(‰Šú‚ÍƒQ[ƒ€‘I‘ğ’†)
+static int NowSelect = eMenu_Speed;    //ç¾åœ¨ã®é¸æŠçŠ¶æ…‹(åˆæœŸã¯ã‚²ãƒ¼ãƒ é¸æŠä¸­)
 
-//XV
+//æ›´æ–°
 void Config_Update() {
-    if (Keyboard_Get(KEY_INPUT_DOWN) == 1) {//‰ºƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        NowSelect = (NowSelect + 1) % eMenu_Num;//‘I‘ğó‘Ô‚ğˆê‚Â‰º‚°‚é
+    if (Keyboard_Get(KEY_INPUT_DOWN) == 1) {//ä¸‹ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+        NowSelect = (NowSelect + 1) % eMenu_Num;//é¸æŠçŠ¶æ…‹ã‚’ä¸€ã¤ä¸‹ã’ã‚‹
     }
-    if (Keyboard_Get(KEY_INPUT_UP) == 1) {//ãƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        NowSelect = (NowSelect + (eMenu_Num - 1)) % eMenu_Num;//‘I‘ğó‘Ô‚ğˆê‚Âã‚°‚é
+    if (Keyboard_Get(KEY_INPUT_UP) == 1) {//ä¸Šã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+        NowSelect = (NowSelect + (eMenu_Num - 1)) % eMenu_Num;//é¸æŠçŠ¶æ…‹ã‚’ä¸€ã¤ä¸Šã’ã‚‹
     }
 
-    if (CheckHitKey(KEY_INPUT_U) != 0) {//GƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        sikaku1--;//ƒV[ƒ“‚ğƒQ[ƒ€‰æ–Ê‚É•ÏX
+    if (Keyboard_Get(KEY_INPUT_RETURN) == 1) {//ã‚¨ãƒ³ã‚¿ãƒ¼ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‚‰
+        switch (NowSelect) {//ç¾åœ¨é¸æŠä¸­ã®çŠ¶æ…‹ã«ã‚ˆã£ã¦å‡¦ç†ã‚’åˆ†å²
+        case eMenu_Speed://ã‚²ãƒ¼ãƒ é¸æŠä¸­ãªã‚‰
+            SceneMgr_ChangeScene(eScene_Menu);//ã‚·ãƒ¼ãƒ³ã‚’ã‚²ãƒ¼ãƒ ç”»é¢ã«å¤‰æ›´
+            break;
+        case eMenu_Diff://è¨­å®šé¸æŠä¸­ãªã‚‰
+            SceneMgr_ChangeScene(eScene_Menu);//ã‚·ãƒ¼ãƒ³ã‚’è¨­å®šç”»é¢ã«å¤‰æ›´
+            break;
+        case eMenu_Move://ã‚²ãƒ¼ãƒ é¸æŠä¸­ãªã‚‰
+            SceneMgr_ChangeScene(eScene_Menu);//ã‚·ãƒ¼ãƒ³ã‚’ã‚²ãƒ¼ãƒ ç”»é¢ã«å¤‰æ›´
+            break;
+        case eMenu_Rule://ã‚²ãƒ¼ãƒ é¸æŠä¸­ãªã‚‰
+            SceneMgr_ChangeScene(eScene_Menu);//ã‚·ãƒ¼ãƒ³ã‚’ã‚²ãƒ¼ãƒ ç”»é¢ã«å¤‰æ›´
+            break;
+        }
     }
-    if (CheckHitKey(KEY_INPUT_D) != 0) {//GƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        sikaku1++;//ƒV[ƒ“‚ğƒQ[ƒ€‰æ–Ê‚É•ÏX
+
+    if (CheckHitKey(KEY_INPUT_G) != 0) {//Gã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+        SceneMgr_ChangeScene(eScene_Menu);//ã‚·ãƒ¼ãƒ³ã‚’ã‚²ãƒ¼ãƒ ç”»é¢ã«å¤‰æ›´
     }
-    if (CheckHitKey(KEY_INPUT_G) != 0) {//GƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        SceneMgr_ChangeScene(eScene_Menu);//ƒV[ƒ“‚ğƒQ[ƒ€‰æ–Ê‚É•ÏX
-    }
-    if (CheckHitKey(KEY_INPUT_ESCAPE) != 0) {//EscƒL[‚ª‰Ÿ‚³‚ê‚Ä‚¢‚½‚ç
-        SceneMgr_ChangeScene(eScene_Menu);//ƒV[ƒ“‚ğƒƒjƒ…[‚É•ÏX
+    if (CheckHitKey(KEY_INPUT_ESCAPE) != 0) {//Escã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã¦ã„ãŸã‚‰
+        SceneMgr_ChangeScene(eScene_Menu);//ã‚·ãƒ¼ãƒ³ã‚’ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«å¤‰æ›´
     }
 }
 
-//•`‰æ
+//æç”»
 void Config_Draw() {
     DrawRotaGraph(320, 230, 1.5, 0.0, mImageHandle, FALSE);
 
-    DrawString(0, 0, "İ’è‰æ–Ê‚Å‚·B", GetColor(255, 255, 255));
-    DrawString(280, 200, "‘¬“x", GetColor(255, 255, 255));
-    DrawString(280, 220, "“ïˆÕ“x", GetColor(255, 255, 255));
-    DrawString(280, 240, "–¾‚é‚³", GetColor(255, 255, 255));
-    DrawString(280, 260, "ƒ‹[ƒ‹", GetColor(255, 255, 255));
-    //DrawString(280, 280, "»ìÒ", GetColor(255, 255, 255));
+    DrawString(0, 0, "è¨­å®šç”»é¢ã§ã™ã€‚", GetColor(255, 255, 255));
+    DrawString(280, 200, "é€Ÿåº¦", GetColor(255, 255, 255));
+    DrawString(280, 220, "é›£æ˜“åº¦", GetColor(255, 255, 255));
+    DrawString(280, 240, "æ˜ã‚‹ã•", GetColor(255, 255, 255));
+    DrawString(280, 260, "ãƒ«ãƒ¼ãƒ«", GetColor(255, 255, 255));
+    //DrawString(280, 280, "è£½ä½œè€…", GetColor(255, 255, 255));
     int y = 0;
-    switch (NowSelect) {//Œ»İ‚Ì‘I‘ğó‘Ô‚É]‚Á‚Äˆ—‚ğ•ªŠò
-    case eMenu_Game://ƒQ[ƒ€‘I‘ğ’†‚È‚ç
-        y = GAME_Y;    //ƒQ[ƒ€‚ÌÀ•W‚ğŠi”[
-        y = GAME_Y;    //ƒQ[ƒ€‚ÌÀ•W‚ğŠi”[
+    switch (NowSelect) {//ç¾åœ¨ã®é¸æŠçŠ¶æ…‹ã«å¾“ã£ã¦å‡¦ç†ã‚’åˆ†å²
+    case eMenu_Speed://ã‚²ãƒ¼ãƒ é¸æŠä¸­ãªã‚‰
+        y = SPEED_Y;    //ã‚²ãƒ¼ãƒ ã®åº§æ¨™ã‚’æ ¼ç´
         break;
-    case eMenu_Config://İ’è‘I‘ğ’†‚È‚ç
-        y = CONFIG_Y;    //İ’è‚ÌÀ•W‚ğŠi”[
+    case eMenu_Diff://è¨­å®šé¸æŠä¸­ãªã‚‰
+        y = DIFF_Y;    //è¨­å®šã®åº§æ¨™ã‚’æ ¼ç´
         break;
-    case eMenu_Move://İ’è‘I‘ğ’†‚È‚ç
-        y = MOVE_Y;    //İ’è‚ÌÀ•W‚ğŠi”[
+    case eMenu_Move://è¨­å®šé¸æŠä¸­ãªã‚‰
+        y = MOVE_Y;    //è¨­å®šã®åº§æ¨™ã‚’æ ¼ç´
+        break;
+    case eMenu_Rule://è¨­å®šé¸æŠä¸­ãªã‚‰
+        y = RULE_Y;    //è¨­å®šã®åº§æ¨™ã‚’æ ¼ç´
         break;
     }
-    DrawString(250, y, "¡", GetColor(255, 255, 255));
-    //DrawString(0, 20, "EscƒL[‚ğ‰Ÿ‚·‚Æƒƒjƒ…[‰æ–Ê‚É–ß‚è‚Ü‚·B", GetColor(255, 255, 255));
-    DrawString(280, 300, "GƒL[‚ğ‰Ÿ‚·‚ÆƒQ[ƒ€‰æ–Ê‚ÉˆÚs‚µ‚Ü‚·B", GetColor(255, 255, 255));
+    DrawString(250, y, "â– ", GetColor(255, 255, 255));
+    //DrawString(0, 20, "Escã‚­ãƒ¼ã‚’æŠ¼ã™ã¨ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã«æˆ»ã‚Šã¾ã™ã€‚", GetColor(255, 255, 255));
+    DrawString(280, 300, "Gã‚­ãƒ¼ã‚’æŠ¼ã™ã¨ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã«ç§»è¡Œã—ã¾ã™ã€‚", GetColor(255, 255, 255));
 }
